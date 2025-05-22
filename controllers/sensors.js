@@ -6,6 +6,15 @@ const getSensors = async (req, res) => {
     res.json(value);
 }
 
+const createSensorValues = async (req, res) => {
+    const { temperature, humidite } = req.body;
+    console.log(temperature, humidite);
+    const value = await sensorsModel.createLastSensorMeasurement(temperature, humidite);
+    res.json(value);
+};
+
+
 export {
-    getSensors
+    getSensors,
+    createSensorValues
 }

@@ -14,6 +14,24 @@ const getLastSensorMeasurement = async () => {
     }
 };
 
+const createLastSensorMeasurement = async (temperature, humidite) => {
+    const connection = await getConnection();
+
+    const sql = "INSERT INTO TEMPERATURE_HUMIDITE(temperature, humidite) VALUES (?, ?)";
+    const values = [temperature, humidite];
+
+    try {
+        const [result] = await connection.query(sql, values);
+        const lastData = getLastSensorMeasurement();
+        return lastData;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
+};
+
+
 export {
-    getLastSensorMeasurement
+    getLastSensorMeasurement,
+    createLastSensorMeasurement
 };
